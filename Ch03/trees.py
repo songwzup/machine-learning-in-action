@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 Created on Oct 12, 2010
 Decision Tree Source Code for Machine Learning in Action Ch. 3
@@ -16,6 +17,9 @@ def createDataSet():
     #change to discrete values
     return dataSet, labels
 
+'''
+计算一个数据集的熵
+'''
 def calcShannonEnt(dataSet):
     numEntries = len(dataSet)
     labelCounts = {}
@@ -38,6 +42,9 @@ def splitDataSet(dataSet, axis, value):
             retDataSet.append(reducedFeatVec)
     return retDataSet
     
+'''
+选择一个数据集信息增益最大的划分，返回维度
+'''
 def chooseBestFeatureToSplit(dataSet):
     numFeatures = len(dataSet[0]) - 1      #the last column is used for the labels
     baseEntropy = calcShannonEnt(dataSet)
@@ -55,7 +62,10 @@ def chooseBestFeatureToSplit(dataSet):
             bestInfoGain = infoGain         #if better than current best, set to best
             bestFeature = i
     return bestFeature                      #returns an integer
-
+'''
+投票法
+类似knn
+'''
 def majorityCnt(classList):
     classCount={}
     for vote in classList:
@@ -63,7 +73,11 @@ def majorityCnt(classList):
         classCount[vote] += 1
     sortedClassCount = sorted(classCount.iteritems(), key=operator.itemgetter(1), reverse=True)
     return sortedClassCount[0][0]
-
+'''
+创建分类树
+输入数据集和特征的标签向量
+输出字典表示的树
+'''
 def createTree(dataSet,labels):
     classList = [example[-1] for example in dataSet]
     if classList.count(classList[0]) == len(classList): 

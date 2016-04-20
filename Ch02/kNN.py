@@ -27,14 +27,14 @@ def classify0(inX, dataSet, labels, k):
     dataSetSize = dataSet.shape[0]
     diffMat = tile(inX, (dataSetSize,1)) - dataSet#训练集与目标向量之差
     sqDiffMat = diffMat**2#差的平方
-    sqDistances = sqDiffMat.sum(axis=1)#
+    sqDistances = sqDiffMat.sum(axis=1)#行求和，每一项
     distances = sqDistances**0.5#开根号
     sortedDistIndicies = distances.argsort()     
     classCount={}          
-    for i in range(k):
-        voteIlabel = labels[sortedDistIndicies[i]]
-        classCount[voteIlabel] = classCount.get(voteIlabel,0) + 1
-    sortedClassCount = sorted(classCount.iteritems(), key=operator.itemgetter(1), reverse=True)
+    for i in range(k):#投票
+        voteIlabel = labels[sortedDistIndicies[i]]#找每个位次的label
+        classCount[voteIlabel] = classCount.get(voteIlabel,0) + 1#用字典存label和票数
+    sortedClassCount = sorted(classCount.iteritems(), key=operator.itemgetter(1), reverse=True)#选择票数最高的
     return sortedClassCount[0][0]
 
 def createDataSet():
@@ -139,3 +139,7 @@ def handwritingClassTest():
         if (classifierResult != classNumStr): errorCount += 1.0
     print "\nthe total number of errors is: %d" % errorCount
     print "\nthe total error rate is: %f" % (errorCount/float(mTest))
+
+
+# groups,labels=createDataSet()
+# print classify0((0.5,0.4),groups,labels,2)

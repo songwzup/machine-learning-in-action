@@ -6,12 +6,10 @@ Created on 2015年9月29日
 '''
 import matplotlib.pyplot as plt
 import numpy as np
-import os
 
 import kNN
 
-curdir='f:\\project\\python\\machine-learning-in-action/Ch02'
-mat1,fab1 = kNN.file2matrix(curdir+"/datingTestSet.txt")
+#mat1,fab1 = kNN.file2matrix("datingTestSet.txt")
 
 #查看训练集
 # fig=plt.figure()
@@ -20,7 +18,7 @@ mat1,fab1 = kNN.file2matrix(curdir+"/datingTestSet.txt")
 # plt.show()
 
 #测试归一化
-mat1 = kNN.autoNorm(mat1)
+#mat1 = kNN.autoNorm(mat1)
 
 #测试简单的分类器准确率
 kNN.datingClassTest()
